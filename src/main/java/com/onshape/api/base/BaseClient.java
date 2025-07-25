@@ -142,13 +142,8 @@ public class BaseClient {
         MEDIA_TYPES.put(AcceptCategory.Binary, BINARY_MEDIA_TYPES);
         MEDIA_TYPES.put(AcceptCategory.Any, new String[]{MediaType.WILDCARD});
     }
-
-    public BaseClient() {
-    	this(null);
-    }
     
-    public BaseClient(String apiVersion) {
-    	this.apiVersion = apiVersion;
+    public BaseClient() {
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
@@ -212,6 +207,24 @@ public class BaseClient {
         this.usingValidation = usingValidation;
     }
 
+    /**
+     * Returns the Onshape API version.
+     *
+     * @return the Onshape API version
+     */
+    public String getAPIVersion() {
+        return apiVersion;
+    }
+
+    /**
+     * Sets the Onshape API version.
+     *
+     * @param apiVersion the Onshape API version
+     */
+    public void setAPIVersion(String apiVersion) {
+        this.apiVersion = apiVersion;
+    }
+    
     /**
      * Get the current Onshape version
      *

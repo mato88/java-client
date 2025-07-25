@@ -32,12 +32,6 @@ import com.onshape.api.types.OnshapeVersion;
 public final class Onshape extends BaseClient {
   private final OnshapeVersion buildVersion = new OnshapeVersion("1.0", "860f36b32a5a25c11fbc5c1d5423be9e4a20e915", "1.137.27923.860f36b32a5a");
 
-  public Onshape() {
-	  super();
-  }
-  public Onshape(String apiVersion) {
-	  super(apiVersion);
-  }
   /**
    * Access API methods for category Accounts
    *  @return API group object
