@@ -100,6 +100,7 @@ import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
 public class BaseClient {
 
     private String baseURL = "https://cad.onshape.com";
+    private String apiVersion;
     private String oauthURL = "https://oauth.onshape.com/oauth/token";
     private final Client client;
     private final Hashids hashids = new Hashids("cloudCADIsGreat", 25, "abcdefghijklmnopqrstuvwxyz01234567890");
@@ -143,6 +144,11 @@ public class BaseClient {
     }
 
     public BaseClient() {
+    	this(null);
+    }
+    
+    public BaseClient(String apiVersion) {
+    	this.apiVersion = apiVersion;
         objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
@@ -698,7 +704,7 @@ public class BaseClient {
     URI buildURI(String path, Map<String, Object> urlParameters, Map<String, Object> queryParameters) throws OnshapeException {
         UriBuilder uriBuilder;
         if (path.startsWith("/")) {
-            uriBuilder = UriBuilder.fromUri(baseURL + "/api" + path
+            uriBuilder = UriBuilder.fromUri(baseURL + "/api" + (apiVersion == null ? "" : "/" + apiVersion) + path
                     .replaceAll(":([a-zA-Z][a-zA-Z0-9]*)", "{$1}")
                     .replaceAll("\\[([a-z]+)\\]", "{$1Type}")
                     .replaceAll("\\/(\\w+)\\|(\\w+)", "/{$1$2}"));
